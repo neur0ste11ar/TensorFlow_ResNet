@@ -2,12 +2,16 @@ from tensorflow.keras import layers, Model, Sequential
 
 
 class BasicBlock(layers.Layer):
+    """
+    https://github.com/neur0ste11ar/TensorFlow_ResNet/blob/main/pawefs.png
+    """
     expansion = 1
 
     def __init__(self, out_channel, strides=1, downsample=None, **kwargs):
         super(BasicBlock, self).__init__(**kwargs)
         self.conv1 = layers.Conv2D(out_channel, kernel_size=3, strides=strides,
                                    padding="SAME", use_bias=False)
+        #BN层
         self.bn1 = layers.BatchNormalization(momentum=0.9, epsilon=1e-5)
         # -----------------------------------------
         self.conv2 = layers.Conv2D(out_channel, kernel_size=3, strides=1,
@@ -30,6 +34,7 @@ class BasicBlock(layers.Layer):
         x = self.conv2(x)
         x = self.bn2(x, training=training)
 
+        #捷径连接
         x = self.add([identity, x])
         x = self.relu(x)
 
@@ -38,8 +43,10 @@ class BasicBlock(layers.Layer):
 
 class Bottleneck(layers.Layer):
     """
+    https://github.com/neur0ste11ar/TensorFlow_ResNet/blob/main/gnpvoaiue.png
     https://ngc.nvidia.com/catalog/model-scripts/nvidia:resnet_50_v1_5_for_pytorch
     """
+    #conv2,3,4,5连接的通道数改变
     expansion = 4
 
     def __init__(self, out_channel, strides=1, downsample=None, **kwargs):
@@ -124,7 +131,9 @@ def _resnet(block, blocks_num, im_width=224, im_height=224, num_classes=1000, in
 
     return model
 
-
+"""
+https://github.com/neur0ste11ar/TensorFlow_ResNet/blob/main/hrfeikah.png
+"""
 def resnet34(im_width=224, im_height=224, num_classes=1000, include_top=True):
     return _resnet(BasicBlock, [3, 4, 6, 3], im_width, im_height, num_classes, include_top)
 

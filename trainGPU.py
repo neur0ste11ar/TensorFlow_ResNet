@@ -31,6 +31,7 @@ def main():
     if not os.path.exists("save_weights"):
         os.makedirs("save_weights")
 
+    #使用预训练模型的预处理方法
     im_height = 224
     im_width = 224
 
