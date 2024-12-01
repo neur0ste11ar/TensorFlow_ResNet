@@ -1,2 +1,2 @@
 # TensorFlow_ResNet
-CUDA-11.2.0    CUDNN-11.0
+环境：CUDA-11.2.0 CUDNN-11.0
